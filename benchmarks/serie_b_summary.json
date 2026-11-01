@@ -1,0 +1,591 @@
+{
+  "index_repo": {
+    "slug": "jax-ml-for-software-devs-field-guide",
+    "diagrams": {
+      "html": 3,
+      "svg": 3,
+      "png": 3
+    }
+  },
+  "total_diagrams": {
+    "html": 18,
+    "svg": 18,
+    "png": 18,
+    "expected": 18
+  },
+  "projects": {
+    "jax-for-software-devs": {
+      "exists": true,
+      "judge_script": "verify_fundamentals.py",
+      "judge_script_exists": true,
+      "results_file": true,
+      "terminal_output_file": true,
+      "diagrams": {
+        "html": 3,
+        "svg": 3,
+        "png": 3
+      },
+      "metrics": {
+        "environment": {
+          "python_version": "3.12.11",
+          "platform": "macOS-26.6.2-arm64-arm-64bit",
+          "processor": "arm",
+          "jax_version": "0.12.0.1",
+          "numpy_version": "2.5.4",
+          "jax_backend": "cpu",
+          "jax_device": "cpu:0"
+        },
+        "experiments": {
+          "01_numpy_to_jax_arrays": {
+            "experiment": "01_numpy_to_jax_arrays",
+            "backend": "cpu",
+            "shape": [
+              8192,
+              32
+            ],
+            "immutability_error_raised": true,
+            "original_unmodified": true,
+            "numpy_ms": 5.8997,
+            "jax_eager_ms": 3.9126,
+            "jax_jit_ms": 0.2724,
+            "speedup_vs_numpy": 21.66,
+            "speedup_vs_eager": 14.36,
+            "max_diff_np_jit": 1.52587890625e-05,
+            "max_diff_eager_jit": 1.52587890625e-05
+          },
+          "02_jit_tracing_vs_execution": {
+            "experiment": "02_jit_tracing_vs_execution",
+            "backend": "cpu",
+            "n_elements": 65536,
+            "trace_count_for_3_same_shape_calls": 1,
+            "trace_count_after_new_shape": 2,
+            "jaxpr_num_equations": 36,
+            "stablehlo_lines": 61,
+            "first_call_compile_ms": 33.924,
+            "numpy_ms": 0.5089,
+            "cached_jit_ms": 0.0921,
+            "speedup": 5.53,
+            "max_diff": 2.384185791015625e-07,
+            "lax_cond_l2_norm": 1.0,
+            "lax_cond_linf_max": 1.0
+          },
+          "03_grad_as_code_transformation": {
+            "experiment": "03_grad_as_code_transformation",
+            "backend": "cpu",
+            "n_samples": 2048,
+            "n_params": 32,
+            "n_steps": 20,
+            "initial_loss": 0.195531,
+            "final_loss": 0.000519,
+            "loss_reduction_ratio": 376.48,
+            "grad_max_diff_vs_finite_diff": 1.2359581887722015e-05,
+            "finite_diff_ms": 1.6547,
+            "jax_value_and_grad_ms": 0.0565,
+            "speedup": 29.29
+          },
+          "04_vmap_goodbye_for_loops": {
+            "experiment": "04_vmap_goodbye_for_loops",
+            "backend": "cpu",
+            "batch_size": 10000,
+            "feature_dim": 16,
+            "for_loop_ms": 31.7093,
+            "vmap_jit_ms": 0.1466,
+            "speedup": 216.32,
+            "max_diff": 1.1920928955078125e-07
+          },
+          "05_deterministic_prng_keys": {
+            "experiment": "05_deterministic_prng_keys",
+            "backend": "cpu",
+            "n_workers": 2048,
+            "reused_key_identical": true,
+            "split_keys_distinct": true,
+            "bitwise_order_invariant": true,
+            "max_diff_forward_reversed": 0.0,
+            "max_diff_sequential_vmap": 1.1920928955078125e-07,
+            "sequential_loop_ms": 408.6253,
+            "vmap_parallel_ms": 8.6511,
+            "speedup": 47.23
+          }
+        },
+        "all_verifications_passed": true
+      },
+      "passed": true
+    },
+    "ml-from-first-principles-in-jax": {
+      "exists": true,
+      "judge_script": "verify_ml_principles.py",
+      "judge_script_exists": true,
+      "results_file": true,
+      "terminal_output_file": true,
+      "diagrams": {
+        "html": 3,
+        "svg": 3,
+        "png": 3
+      },
+      "metrics": {
+        "environment": {
+          "python_version": "3.12.11",
+          "platform": "macOS-26.6.2-arm64-arm-64bit",
+          "processor": "arm",
+          "jax_version": "0.12.0.1",
+          "numpy_version": "2.5.4",
+          "jax_backend": "cpu",
+          "jax_device": "cpu:0"
+        },
+        "experiments": {
+          "01_rules_vs_learned_weights": {
+            "experiment": "01_rules_vs_learned_weights",
+            "backend": "cpu",
+            "n_samples": 2048,
+            "n_steps": 250,
+            "rules_mse": 531.3102,
+            "initial_ml_mse": 5811.4399,
+            "learned_mse": 0.3949,
+            "mse_reduction_vs_rules": 1345.28,
+            "true_w": [
+              34.5,
+              -4.2,
+              19.8,
+              11.4
+            ],
+            "learned_w": [
+              34.37,
+              -4.28,
+              19.717,
+              11.249
+            ],
+            "true_b": 8.5,
+            "learned_b": 9.001,
+            "max_weight_error": 0.1513,
+            "train_time_ms": 7.701
+          },
+          "02_gradient_descent_geometry": {
+            "experiment": "02_gradient_descent_geometry",
+            "backend": "cpu",
+            "n_steps": 180,
+            "initial_loss": 454.0179,
+            "sgd_final_loss": 8.564543,
+            "momentum_final_loss": 0.45256,
+            "adam_final_loss": 1e-06,
+            "sgd_steps_to_0_05": 180,
+            "momentum_steps_to_0_05": 180,
+            "adam_steps_to_0_05": 79,
+            "eager_loop_ms": 2611.6963,
+            "compiled_scan_ms": 3.4312,
+            "speedup": 761.17
+          },
+          "03_logistic_classification_cross_entropy": {
+            "experiment": "03_logistic_classification_cross_entropy",
+            "backend": "cpu",
+            "n_samples": 1800,
+            "naive_overflow_nan": true,
+            "stable_logsumexp_finite": true,
+            "max_diff_vs_jax_nn": 0.0,
+            "initial_loss": 1.0986,
+            "final_loss": 0.0113,
+            "initial_accuracy": 33.33,
+            "final_accuracy": 99.94,
+            "train_time_ms": 12.406
+          },
+          "04_two_layer_mlp_from_scratch": {
+            "experiment": "04_two_layer_mlp_from_scratch",
+            "backend": "cpu",
+            "n_samples": 1500,
+            "hidden_dim": 64,
+            "n_steps": 350,
+            "linear_collapse_max_diff": 1.430511474609375e-06,
+            "initial_accuracy": 33.6,
+            "linear_stack_accuracy": 32.53,
+            "mlp_gelu_accuracy": 99.47,
+            "linear_stack_final_loss": 1.116,
+            "mlp_gelu_final_loss": 0.0906,
+            "train_time_ms": 101.3096
+          },
+          "05_overfitting_and_weight_decay": {
+            "experiment": "05_overfitting_and_weight_decay",
+            "backend": "cpu",
+            "n_train": 32,
+            "n_val": 256,
+            "n_features": 28,
+            "overfit_train_mse": 0.29,
+            "overfit_val_mse": 9.9728,
+            "overfit_val_to_train_ratio": 34.39,
+            "overfit_weight_norm": 3.43,
+            "regularized_train_mse": 0.6584,
+            "regularized_val_mse": 2.2289,
+            "regularized_weight_norm": 0.7,
+            "val_mse_reduction_ratio": 4.47,
+            "elapsed_ms": 108.7588
+          }
+        },
+        "all_verifications_passed": true
+      },
+      "passed": true
+    },
+    "embeddings-and-semantic-search-in-jax": {
+      "exists": true,
+      "judge_script": "verify_embeddings.py",
+      "judge_script_exists": true,
+      "results_file": true,
+      "terminal_output_file": true,
+      "diagrams": {
+        "html": 3,
+        "svg": 3,
+        "png": 3
+      },
+      "metrics": {
+        "runtime": {
+          "python": "3.12.11",
+          "jax": "0.12.0.1",
+          "numpy": "2.5.4",
+          "backend": "cpu"
+        },
+        "experiments": {
+          "01_tokens_to_embedding_table": {
+            "backend": "cpu",
+            "vocab_size": 32000,
+            "embed_dim": 128,
+            "batch_shape": [
+              32,
+              64
+            ],
+            "onehot_buffer_mib": 250.0,
+            "dense_buffer_mib": 1.0,
+            "memory_saving_ratio": 250.0,
+            "onehot_ms": 35.81457779897998,
+            "lookup_ms": 0.12109863261381786,
+            "speedup": 295.7471692780567,
+            "max_diff": 0.0,
+            "pad_grad_norm": 0.0,
+            "active_grad_norm": 0.002581952139735222
+          },
+          "02_cosine_similarity_and_vector_space": {
+            "backend": "cpu",
+            "queries_shape": [
+              64,
+              256
+            ],
+            "docs_shape": [
+              2048,
+              256
+            ],
+            "max_norm_error": 1.7881393432617188e-07,
+            "numpy_loop_ms": 86.94070787169039,
+            "jax_jit_ms": 0.43520834296941757,
+            "speedup": 199.76801749363472,
+            "max_diff": 2.2351741790771484e-07,
+            "euclid_same_topic_long": 3.9890599250793457,
+            "euclid_unrelated_short": 1.3652106523513794,
+            "euclid_picks_correct_doc": false,
+            "cosine_same_topic_long": 0.9999909400939941,
+            "cosine_unrelated_short": 0.05573011934757233,
+            "cosine_picks_correct_doc": true
+          },
+          "03_training_contrastive_embeddings": {
+            "backend": "cpu",
+            "num_pairs": 16,
+            "embed_dim": 64,
+            "num_steps": 180,
+            "train_ms": 184.580042026937,
+            "init_loss": 3.7215583324432373,
+            "final_loss": 0.8806435465812683,
+            "init_recall_at_1": 0.125,
+            "final_recall_at_1": 1.0,
+            "init_pos_sim": 0.4500132203102112,
+            "init_neg_sim": 0.44463008642196655,
+            "final_pos_sim": 0.7672659158706665,
+            "final_neg_sim": 0.10371509194374084,
+            "margin_gain": 0.6581677198410034
+          },
+          "04_jit_vector_search_engine": {
+            "backend": "cpu",
+            "index_shape": [
+              50000,
+              256
+            ],
+            "index_mib": 48.828125,
+            "queries_shape": [
+              128,
+              256
+            ],
+            "top_k": 5,
+            "numpy_seq_ms": 1191.9367499649525,
+            "jax_batch_ms": 15.74861250119284,
+            "per_query_us": 123.03603516556906,
+            "speedup": 75.68519130651492,
+            "exact_match_rate": 1.0,
+            "needle_recall_at_1": 1.0,
+            "max_score_diff": 7.152557373046875e-07
+          },
+          "05_zero_shot_and_linear_probe_classifier": {
+            "backend": "cpu",
+            "num_train_samples": 32,
+            "num_test_tickets": 12,
+            "embed_dim": 64,
+            "untrained_zero_shot_acc": 0.5833333730697632,
+            "zero_shot_acc": 1.0,
+            "zero_shot_ms": 0.08629192598164082,
+            "linear_probe_acc": 1.0,
+            "linear_probe_confidence": 0.6695922613143921,
+            "linear_probe_train_ms": 53.890832932665944,
+            "linear_probe_loss": 0.20137187838554382,
+            "sample_predictions": [
+              {
+                "ticket": "necesito factura fiscal con IVA desglosado del cobro mensual en tarjeta",
+                "expected": "Facturacion",
+                "zero_shot": "Facturacion",
+                "linear_probe": "Facturacion",
+                "cosine_score": 0.7003616690635681
+              },
+              {
+                "ticket": "el certificado SSL de nuestro balanceador devuelve timeout en HTTPS",
+                "expected": "Redes/DNS",
+                "zero_shot": "Redes/DNS",
+                "linear_probe": "Redes/DNS",
+                "cosine_score": 0.744086503982544
+              },
+              {
+                "ticket": "error 403 PermissionDenied en la service account al acceder al bucket",
+                "expected": "Permisos IAM",
+                "zero_shot": "Permisos IAM",
+                "linear_probe": "Permisos IAM",
+                "cosine_score": 0.5688943862915039
+              },
+              {
+                "ticket": "bloqueo deadlock en transacciones SQL y tabla lenta sin indice B-tree",
+                "expected": "Base de Datos",
+                "zero_shot": "Base de Datos",
+                "linear_probe": "Base de Datos",
+                "cosine_score": 0.830199658870697
+              }
+            ]
+          }
+        }
+      },
+      "passed": true
+    },
+    "foundational-models-anatomy-in-jax": {
+      "exists": true,
+      "judge_script": "verify_anatomy.py",
+      "judge_script_exists": true,
+      "results_file": true,
+      "terminal_output_file": true,
+      "diagrams": {
+        "html": 3,
+        "svg": 3,
+        "png": 3
+      },
+      "metrics": {
+        "environment": {
+          "python_version": "3.12.11",
+          "platform": "macOS-26.6.2-arm64-arm-64bit",
+          "processor": "arm",
+          "jax_version": "0.12.0.1",
+          "numpy_version": "2.5.4",
+          "jax_backend": "cpu",
+          "jax_device": "cpu:0"
+        },
+        "experiments": {
+          "01_bpe_tokenizer_as_data_compression": {
+            "backend": "cpu",
+            "vocab_size": 384,
+            "raw_byte_len_es": 175,
+            "bpe_token_len_es": 79,
+            "compression_ratio_es": 2.2152,
+            "chars_per_token_es": 2.1772,
+            "chars_per_token_en": 2.2687,
+            "quadratic_attention_saving": 4.9071,
+            "roundtrip_exact": true,
+            "py_lookup_ms": 13.3156,
+            "jit_lookup_ms": 0.3248,
+            "speedup_vs_py": 41.0024,
+            "max_diff": 0.0
+          },
+          "02_self_attention_as_soft_dictionary": {
+            "backend": "cpu",
+            "shape": "(8, 8, 128, 64)",
+            "rope_norm_diff": 1e-06,
+            "rope_rel_diff": 1e-06,
+            "causal_prefix_leak": 0.0,
+            "naive_ms": 6.9015,
+            "jit_ms": 1.1861,
+            "speedup": 5.8185,
+            "max_diff": 1e-06
+          },
+          "03_gemma_block_rms_geglu": {
+            "backend": "cpu",
+            "shape": "(8, 128, 256)",
+            "num_q_heads": 8,
+            "num_kv_heads": 2,
+            "mha_kv_kb": 2048.0,
+            "gqa_kv_kb": 512.0,
+            "kv_memory_saving_ratio": 4.0,
+            "rms_mean": 1.0,
+            "eager_ms": 8.1952,
+            "jit_ms": 4.1231,
+            "speedup": 1.9876,
+            "max_diff": 2e-06
+          },
+          "04_kv_cache_prefill_vs_decode": {
+            "backend": "cpu",
+            "prompt_len": 64,
+            "gen_steps": 64,
+            "max_seq_len": 128,
+            "exact_token_match": true,
+            "max_logit_diff": 8e-06,
+            "naive_ms": 414.8111,
+            "kv_ms": 43.0929,
+            "speedup": 9.626
+          },
+          "05_sampling_loop_temperature_top_p": {
+            "backend": "cpu",
+            "shape": "(32, 64, 512)",
+            "greedy_parity": true,
+            "active_support_mean": 13.7969,
+            "grammar_compliance_rate": 100.0,
+            "py_ms": 74.3556,
+            "jit_ms": 3.6776,
+            "speedup": 20.2187
+          }
+        },
+        "all_verifications_passed": true
+      },
+      "passed": true
+    },
+    "adapting-gemma-for-your-app-in-jax": {
+      "exists": true,
+      "judge_script": "verify_adaptation.py",
+      "judge_script_exists": true,
+      "results_file": true,
+      "terminal_output_file": true,
+      "diagrams": {
+        "html": 3,
+        "svg": 3,
+        "png": 3
+      },
+      "metrics": {
+        "runtime": {
+          "python": "3.12.11",
+          "jax": "0.12.0.1",
+          "flax": "0.12.12",
+          "optax": "0.2.8",
+          "numpy": "2.5.4",
+          "backend": "cpu"
+        },
+        "experiments": {
+          "01_when_prompting_hits_a_wall": {
+            "backend": "cpu",
+            "batch_size": 8,
+            "fewshot_seq_len": 208,
+            "compact_seq_len": 16,
+            "token_overhead_ratio": 13.0,
+            "fewshot_prefill_ms": 34.09087668173015,
+            "compact_prefill_ms": 7.107734996825457,
+            "prefill_speedup": 4.79630665703719,
+            "fewshot_kv_cache_kb": 6656.0,
+            "compact_kv_cache_kb": 512.0,
+            "kv_cache_reduction_pct": 92.3076923076923,
+            "unadapted_sample_output": "<unk:295><unk:596><unk:550><unk:343><unk:550><unk:343><unk:550><unk:343><unk:550><unk:343><unk:550><unk:343><unk:193><unk:83>",
+            "unadapted_valid_json": false
+          },
+          "02_preparing_domain_dataset_masking": {
+            "batch_shape": [
+              12,
+              32
+            ],
+            "jit_trace_count": 2,
+            "wasted_prompt_token_share_pct": 40.42553191489361,
+            "initial_completion_loss": 7.105162620544434,
+            "initial_completion_acc_pct": 0.0,
+            "unmasked_completion_loss": 0.06774304807186127,
+            "unmasked_completion_acc_pct": 100.0,
+            "masked_completion_loss": 0.045623596757650375,
+            "masked_completion_acc_pct": 100.0,
+            "loss_improvement_ratio": 1.484824776649475
+          },
+          "03_lora_adapters_in_flax_nnx": {
+            "base_params": 3672320,
+            "lora_params": 77824,
+            "total_params": 3750144,
+            "trainable_ratio_pct": 2.075226977950713,
+            "reduction_pct": 97.92477302204928,
+            "lora_rank": 4,
+            "steps": 45,
+            "loss_before": 7.16532039642334,
+            "loss_step_20": 0.5186219215393066,
+            "loss_after": 0.17091724276542664,
+            "max_base_weight_diff": 0.0,
+            "max_lora_weight_diff": 0.3582848906517029,
+            "base_weights_frozen_bitwise": true,
+            "lora_weights_updated": true
+          },
+          "04_structured_output_validation_eval": {
+            "before_lora": {
+              "num_cases": 12,
+              "json_parse_rate_pct": 0.0,
+              "schema_valid_rate_pct": 0.0,
+              "field_accuracy_pct": 0.0,
+              "exact_match_rate_pct": 0.0
+            },
+            "after_lora": {
+              "num_cases": 12,
+              "json_parse_rate_pct": 100.0,
+              "schema_valid_rate_pct": 100.0,
+              "field_accuracy_pct": 100.0,
+              "exact_match_rate_pct": 100.0
+            },
+            "sample_records": [
+              {
+                "incident_text": "alerta critica pasarela pagos timeout cobros tarjeta produccion urgente",
+                "expected_json": "{\"sev\":\"P1\",\"svc\":\"pagos\",\"act\":\"rollback\"}",
+                "decoded_output": "{\"sev\":\"P1\",\"svc\":\"pagos\",\"act\":\"rollback\"}",
+                "schema_valid": true,
+                "exact_match": true
+              },
+              {
+                "incident_text": "error sincronizacion cache pagos latencia moderada api gateway",
+                "expected_json": "{\"sev\":\"P2\",\"svc\":\"pagos\",\"act\":\"cache\"}",
+                "decoded_output": "{\"sev\":\"P2\",\"svc\":\"pagos\",\"act\":\"cache\"}",
+                "schema_valid": true,
+                "exact_match": true
+              },
+              {
+                "incident_text": "fallo critico servicio auth tokens jwt rechazados clientes produccion",
+                "expected_json": "{\"sev\":\"P1\",\"svc\":\"auth\",\"act\":\"rollback\"}",
+                "decoded_output": "{\"sev\":\"P1\",\"svc\":\"auth\",\"act\":\"rollback\"}",
+                "schema_valid": true,
+                "exact_match": true
+              }
+            ]
+          },
+          "05_merge_weights_and_serve_endpoint": {
+            "lora_params_before_merge": 77824,
+            "lora_params_after_merge": 0,
+            "merged_total_params": 3672320,
+            "max_logits_abs_diff": 9.953975677490234e-06,
+            "unmerged_forward_ms": 11.657465482130647,
+            "merged_forward_ms": 9.834886914385216,
+            "merge_inference_speedup": 1.185317694408829,
+            "merged_exact_match_rate_pct": 100.0,
+            "http_status": 200,
+            "http_response": {
+              "status": "ok",
+              "triage": {
+                "sev": "P1",
+                "svc": "pagos",
+                "act": "rollback"
+              },
+              "raw_completion": "{\"sev\":\"P1\",\"svc\":\"pagos\",\"act\":\"rollback\"}",
+              "schema_valid": true,
+              "inference_ms": 35.6273,
+              "serving_mode": "merged_single_branch_xla"
+            }
+          }
+        },
+        "all_checks_passed": true
+      },
+      "passed": true
+    }
+  },
+  "all_passed": true
+}
