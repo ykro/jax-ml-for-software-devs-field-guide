@@ -30,6 +30,19 @@
           "python_version": "3.12.11",
           "platform": "macOS-26.6.2-arm64-arm-64bit",
           "processor": "arm",
+          "cpu_model": "Apple M1 Max",
+          "cpu_count": 10,
+          "load_average_before": [
+            7.58,
+            16.49,
+            17.27
+          ],
+          "load_average_after": [
+            7.45,
+            16.31,
+            17.2
+          ],
+          "timing": "median ms per call after one warmup call; varies run to run",
           "jax_version": "0.12.0.1",
           "numpy_version": "2.5.4",
           "jax_backend": "cpu",
@@ -45,13 +58,17 @@
             ],
             "immutability_error_raised": true,
             "original_unmodified": true,
-            "numpy_ms": 5.8997,
-            "jax_eager_ms": 3.9126,
-            "jax_jit_ms": 0.2724,
-            "speedup_vs_numpy": 21.66,
-            "speedup_vs_eager": 14.36,
+            "numpy_ms": 6.167,
+            "numpy_hoisted_ms": 1.4747,
+            "jax_eager_ms": 4.4308,
+            "jax_jit_ms": 0.3467,
+            "speedup_vs_numpy": 17.79,
+            "speedup_vs_eager": 12.78,
+            "speedup_vs_numpy_hoisted": 4.25,
+            "eager_vs_numpy": 1.39,
             "max_diff_np_jit": 1.52587890625e-05,
-            "max_diff_eager_jit": 1.52587890625e-05
+            "max_diff_eager_jit": 1.52587890625e-05,
+            "max_diff_hoisted_jit": 3.0517578125e-05
           },
           "02_jit_tracing_vs_execution": {
             "experiment": "02_jit_tracing_vs_execution",
@@ -59,12 +76,12 @@
             "n_elements": 65536,
             "trace_count_for_3_same_shape_calls": 1,
             "trace_count_after_new_shape": 2,
-            "jaxpr_num_equations": 36,
+            "jaxpr_num_equations": 15,
             "stablehlo_lines": 61,
-            "first_call_compile_ms": 33.924,
-            "numpy_ms": 0.5089,
-            "cached_jit_ms": 0.0921,
-            "speedup": 5.53,
+            "first_call_compile_ms": 36.923,
+            "numpy_ms": 0.5132,
+            "cached_jit_ms": 0.102,
+            "speedup": 5.03,
             "max_diff": 2.384185791015625e-07,
             "lax_cond_l2_norm": 1.0,
             "lax_cond_linf_max": 1.0
@@ -79,19 +96,25 @@
             "final_loss": 0.000519,
             "loss_reduction_ratio": 376.48,
             "grad_max_diff_vs_finite_diff": 1.2359581887722015e-05,
-            "finite_diff_ms": 1.6547,
-            "jax_value_and_grad_ms": 0.0565,
-            "speedup": 29.29
+            "finite_diff_jit_max_diff_vs_exact": 2.4160370230674744e-05,
+            "finite_diff_ms": 1.8369,
+            "finite_diff_jit_ms": 0.3449,
+            "jax_value_and_grad_ms": 0.0533,
+            "speedup": 34.48,
+            "speedup_vs_compiled_fd": 6.47
           },
           "04_vmap_goodbye_for_loops": {
             "experiment": "04_vmap_goodbye_for_loops",
             "backend": "cpu",
             "batch_size": 10000,
             "feature_dim": 16,
-            "for_loop_ms": 31.7093,
-            "vmap_jit_ms": 0.1466,
-            "speedup": 216.32,
-            "max_diff": 1.1920928955078125e-07
+            "for_loop_ms": 33.5893,
+            "numpy_vectorized_ms": 0.3204,
+            "vmap_jit_ms": 0.1571,
+            "speedup": 213.77,
+            "speedup_vs_numpy_vectorized": 2.04,
+            "max_diff": 1.1920928955078125e-07,
+            "max_diff_vectorized": 1.1920928955078125e-07
           },
           "05_deterministic_prng_keys": {
             "experiment": "05_deterministic_prng_keys",
@@ -102,9 +125,11 @@
             "bitwise_order_invariant": true,
             "max_diff_forward_reversed": 0.0,
             "max_diff_sequential_vmap": 1.1920928955078125e-07,
-            "sequential_loop_ms": 408.6253,
-            "vmap_parallel_ms": 8.6511,
-            "speedup": 47.23
+            "sequential_loop_ms": 419.0313,
+            "compiled_loop_ms": 98.998,
+            "vmap_batched_ms": 8.9766,
+            "speedup": 46.68,
+            "speedup_vs_compiled_loop": 11.03
           }
         },
         "all_verifications_passed": true
@@ -127,6 +152,19 @@
           "python_version": "3.12.11",
           "platform": "macOS-26.6.2-arm64-arm-64bit",
           "processor": "arm",
+          "cpu_model": "Apple M1 Max",
+          "cpu_count": 10,
+          "load_average_before": [
+            24.85,
+            24.31,
+            23.28
+          ],
+          "load_average_after": [
+            21.51,
+            23.57,
+            23.04
+          ],
+          "timing": "median ms after a warmup; varies run to run",
           "jax_version": "0.12.0.1",
           "numpy_version": "2.5.4",
           "jax_backend": "cpu",
@@ -157,27 +195,83 @@
             "true_b": 8.5,
             "learned_b": 9.001,
             "max_weight_error": 0.1513,
-            "train_time_ms": 7.701
+            "closed_form_mse": 0.3754,
+            "closed_form_w": [
+              34.495,
+              -4.171,
+              19.842,
+              11.38
+            ],
+            "closed_form_b": 8.456,
+            "learned_vs_closed_form_ratio": 1.052,
+            "noise_floor_mse": 0.3764,
+            "median_step_ms": 0.0523,
+            "timed_steps": 250
           },
           "02_gradient_descent_geometry": {
             "experiment": "02_gradient_descent_geometry",
             "backend": "cpu",
             "n_steps": 180,
             "initial_loss": 454.0179,
+            "hessian_condition_number": 2741.8,
+            "learning_rates": {
+              "sgd": 0.025,
+              "momentum": 0.025,
+              "adam": 0.35
+            },
             "sgd_final_loss": 8.564543,
             "momentum_final_loss": 0.45256,
             "adam_final_loss": 1e-06,
-            "sgd_steps_to_0_05": 180,
-            "momentum_steps_to_0_05": 180,
+            "sgd_steps_to_0_05": null,
+            "momentum_steps_to_0_05": null,
             "adam_steps_to_0_05": 79,
-            "eager_loop_ms": 2611.6963,
-            "compiled_scan_ms": 3.4312,
-            "speedup": 761.17
+            "lr_sweep": {
+              "sgd": {
+                "best_lr": 0.0251,
+                "final_loss": 8.536668,
+                "steps_to_0_05": null
+              },
+              "momentum": {
+                "best_lr": 0.0501,
+                "final_loss": 0.036971,
+                "steps_to_0_05": 171
+              },
+              "adam": {
+                "best_lr": 0.7943,
+                "final_loss": 0.0,
+                "steps_to_0_05": 69
+              }
+            },
+            "eager_loop_ms": 1426.9655,
+            "jit_step_loop_ms": 5.1877,
+            "compiled_scan_ms": 2.4253,
+            "speedup_vs_eager": 588.37,
+            "speedup_vs_jit_step_loop": 2.14,
+            "timing_repeats": {
+              "eager": 3,
+              "jit_step_loop": 15,
+              "scan": 30
+            }
           },
           "03_logistic_classification_cross_entropy": {
             "experiment": "03_logistic_classification_cross_entropy",
             "backend": "cpu",
             "n_samples": 1800,
+            "extreme_logits": [
+              10.0,
+              20.0,
+              120.0
+            ],
+            "naive_softmax_output": [
+              "0.0",
+              "0.0",
+              "nan"
+            ],
+            "stable_log_softmax_output": [
+              -110.0,
+              -100.0,
+              0.0
+            ],
             "naive_overflow_nan": true,
             "stable_logsumexp_finite": true,
             "max_diff_vs_jax_nn": 0.0,
@@ -185,7 +279,10 @@
             "final_loss": 0.0113,
             "initial_accuracy": 33.33,
             "final_accuracy": 99.94,
-            "train_time_ms": 12.406
+            "n_test": 900,
+            "test_accuracy": 100.0,
+            "n_steps": 200,
+            "median_step_ms": 0.1779
           },
           "04_two_layer_mlp_from_scratch": {
             "experiment": "04_two_layer_mlp_from_scratch",
@@ -197,25 +294,40 @@
             "initial_accuracy": 33.6,
             "linear_stack_accuracy": 32.53,
             "mlp_gelu_accuracy": 99.47,
+            "linear_stack_test_accuracy": 30.6,
+            "mlp_gelu_test_accuracy": 99.07,
+            "n_test": 1500,
             "linear_stack_final_loss": 1.116,
             "mlp_gelu_final_loss": 0.0906,
-            "train_time_ms": 101.3096
+            "he_init_distinct_hidden_units": 64,
+            "zero_init_distinct_hidden_units": 1,
+            "zero_init_accuracy": 33.33,
+            "median_train_ms": 258.8036
           },
           "05_overfitting_and_weight_decay": {
             "experiment": "05_overfitting_and_weight_decay",
             "backend": "cpu",
             "n_train": 32,
             "n_val": 256,
+            "n_test": 1024,
             "n_features": 28,
             "overfit_train_mse": 0.29,
             "overfit_val_mse": 9.9728,
             "overfit_val_to_train_ratio": 34.39,
             "overfit_weight_norm": 3.43,
-            "regularized_train_mse": 0.6584,
+            "regularized_train_mse": 2.7273,
             "regularized_val_mse": 2.2289,
             "regularized_weight_norm": 0.7,
             "val_mse_reduction_ratio": 4.47,
-            "elapsed_ms": 108.7588
+            "test_mse": {
+              "unregularized_final": 9.981,
+              "weight_decay_only_final": 2.7368,
+              "val_gate_only_best": 2.9292,
+              "weight_decay_plus_gate_best": 2.9337
+            },
+            "test_noise_floor_mse": 0.0103,
+            "test_mse_reduction_ratio": 3.4,
+            "median_800_step_scan_ms": 2.9087
           }
         },
         "all_verifications_passed": true
@@ -238,7 +350,20 @@
           "python": "3.12.11",
           "jax": "0.12.0.1",
           "numpy": "2.5.4",
-          "backend": "cpu"
+          "backend": "cpu",
+          "cpu_model": "Apple M1 Max",
+          "cpu_count": 10,
+          "load_average_before": [
+            22.26,
+            33.49,
+            32.04
+          ],
+          "load_average_after": [
+            20.43,
+            32.73,
+            31.78
+          ],
+          "timing": "median ms per call after one warmup call; varies run to run"
         },
         "experiments": {
           "01_tokens_to_embedding_table": {
@@ -249,15 +374,52 @@
               32,
               64
             ],
+            "real_tokens": 1416,
             "onehot_buffer_mib": 250.0,
-            "dense_buffer_mib": 1.0,
+            "gathered_buffer_mib": 1.0,
             "memory_saving_ratio": 250.0,
-            "onehot_ms": 35.81457779897998,
-            "lookup_ms": 0.12109863261381786,
-            "speedup": 295.7471692780567,
-            "max_diff": 0.0,
+            "lookup_has_gather": true,
+            "onehot_has_dot_general": true,
+            "lookup_jaxpr": [
+              "bool[32,64] = lt(int32[32,64], int32[])",
+              "int32[32,64] = add(int32[32,64], int32[])",
+              "int32[32,64] = select_n(bool[32,64], int32[32,64], int32[32,64])",
+              "int32[32,64,1] = broadcast_in_dim(int32[32,64])",
+              "float32[32,64,128] = gather(float32[32000,128], int32[32,64,1])",
+              "float32[32,64,1] = broadcast_in_dim(float32[32,64])",
+              "float32[32,64,128] = mul(float32[32,64,128], float32[32,64,1])",
+              "float32[32,128] = reduce_sum(float32[32,64,128])",
+              "float32[32] = reduce_sum(float32[32,64])",
+              "float32[32,1] = broadcast_in_dim(float32[32])",
+              "float32[32,1] = max(float32[32,1], float32[])",
+              "float32[32,128] = div(float32[32,128], float32[32,1])"
+            ],
+            "onehot_jaxpr": [
+              "float32[32,64,32000] = jit[_one_hot](int32[32,64])",
+              "  int32[32,64,1] = broadcast_in_dim(int32[32,64])",
+              "  int32[1,1,32000] = iota()",
+              "  bool[32,64,32000] = eq(int32[32,64,1], int32[1,1,32000])",
+              "  float32[32,64,32000] = convert_element_type(bool[32,64,32000])",
+              "float32[32,64,128] = dot_general(float32[32,64,32000], float32[32000,128])",
+              "float32[32,64,1] = broadcast_in_dim(float32[32,64])",
+              "float32[32,64,128] = mul(float32[32,64,128], float32[32,64,1])",
+              "float32[32,128] = reduce_sum(float32[32,64,128])",
+              "float32[32] = reduce_sum(float32[32,64])",
+              "float32[32,1] = broadcast_in_dim(float32[32])",
+              "float32[32,1] = max(float32[32,1], float32[])",
+              "float32[32,128] = div(float32[32,128], float32[32,1])"
+            ],
+            "nonzero_grad_rows": 1387,
+            "unique_real_ids": 1387,
             "pad_grad_norm": 0.0,
-            "active_grad_norm": 0.002581952139735222
+            "timing": "median ms per call after a warmup, n=30",
+            "onehot_ms": 47.19170811586082,
+            "lookup_ms": 0.15829154290258884,
+            "numpy_lookup_ms": 0.2594789257273078,
+            "speedup": 298.13158208270266,
+            "speedup_vs_numpy_gather": 1.6392469298690755,
+            "max_diff": 0.0,
+            "max_diff_numpy": 9.313225746154785e-10
           },
           "02_cosine_similarity_and_vector_space": {
             "backend": "cpu",
@@ -270,10 +432,14 @@
               256
             ],
             "max_norm_error": 1.7881393432617188e-07,
-            "numpy_loop_ms": 86.94070787169039,
-            "jax_jit_ms": 0.43520834296941757,
-            "speedup": 199.76801749363472,
+            "timing": "median ms per call after a warmup, n=50 (loop n=3)",
+            "numpy_loop_ms": 95.30850010924041,
+            "numpy_vectorized_ms": 0.3786879824474454,
+            "jax_jit_ms": 0.4750625230371952,
+            "speedup": 200.62306641220403,
+            "speedup_vs_numpy_vectorized": 0.7971329332113951,
             "max_diff": 2.2351741790771484e-07,
+            "max_diff_vectorized": 1.1920928955078125e-07,
             "euclid_same_topic_long": 3.9890599250793457,
             "euclid_unrelated_short": 1.3652106523513794,
             "euclid_picks_correct_doc": false,
@@ -286,9 +452,12 @@
             "num_pairs": 16,
             "embed_dim": 64,
             "num_steps": 180,
-            "train_ms": 184.580042026937,
+            "first_call_compile_ms": 252.39441613666713,
+            "train_ms": 18.992458004504442,
+            "ms_per_step": 0.10551365558058023,
             "init_loss": 3.7215583324432373,
             "final_loss": 0.8806435465812683,
+            "recall_measured_on": "the 16 training pairs (chance = 1/16 = 6.25%)",
             "init_recall_at_1": 0.125,
             "final_recall_at_1": 1.0,
             "init_pos_sim": 0.4500132203102112,
@@ -309,25 +478,38 @@
               256
             ],
             "top_k": 5,
-            "numpy_seq_ms": 1191.9367499649525,
-            "jax_batch_ms": 15.74861250119284,
-            "per_query_us": 123.03603516556906,
-            "speedup": 75.68519130651492,
+            "scored_pairs": 6400000,
+            "timing": "median ms per call after a warmup, n=20 (loop n=3)",
+            "numpy_seq_ms": 1238.2640421856195,
+            "numpy_batched_ms": 59.60464559029788,
+            "jax_batch_ms": 15.890291426330805,
+            "per_query_us": 124.14290176820941,
+            "single_query_ms": 0.8737703319638968,
+            "speedup": 77.92582331962583,
+            "speedup_vs_numpy_batched": 3.7510102232316997,
             "exact_match_rate": 1.0,
+            "exact_match_rate_batched": 1.0,
             "needle_recall_at_1": 1.0,
-            "max_score_diff": 7.152557373046875e-07
+            "max_score_diff": 7.152557373046875e-07,
+            "hlo_fusions": 4,
+            "hlo_topk_custom_call": true
           },
           "05_zero_shot_and_linear_probe_classifier": {
             "backend": "cpu",
             "num_train_samples": 32,
             "num_test_tickets": 12,
             "embed_dim": 64,
-            "untrained_zero_shot_acc": 0.5833333730697632,
+            "untrained_correct": 7,
+            "untrained_zero_shot_acc": 0.5833333333333334,
+            "zero_shot_correct": 12,
             "zero_shot_acc": 1.0,
-            "zero_shot_ms": 0.08629192598164082,
+            "zero_shot_trained_params": 0,
+            "zero_shot_ms": 0.009979121387004852,
+            "linear_probe_correct": 12,
             "linear_probe_acc": 1.0,
+            "linear_probe_params": 260,
             "linear_probe_confidence": 0.6695922613143921,
-            "linear_probe_train_ms": 53.890832932665944,
+            "linear_probe_train_ms": 0.5863751284778118,
             "linear_probe_loss": 0.20137187838554382,
             "sample_predictions": [
               {
@@ -380,6 +562,19 @@
           "python_version": "3.12.11",
           "platform": "macOS-26.6.2-arm64-arm-64bit",
           "processor": "arm",
+          "cpu_model": "Apple M1 Max",
+          "cpu_count": 10,
+          "load_average_before": [
+            21.65,
+            22.12,
+            19.09
+          ],
+          "load_average_after": [
+            17.92,
+            21.26,
+            18.83
+          ],
+          "timing": "median ms after a warmup; varies run to run",
           "jax_version": "0.12.0.1",
           "numpy_version": "2.5.4",
           "jax_backend": "cpu",
@@ -395,11 +590,24 @@
             "chars_per_token_es": 2.1772,
             "chars_per_token_en": 2.2687,
             "quadratic_attention_saving": 4.9071,
+            "heldout_byte_len": 86,
+            "heldout_token_len": 54,
+            "heldout_compression_ratio": 1.5926,
+            "first_merges": [
+              "en",
+              "s ",
+              "de",
+              "at"
+            ],
             "roundtrip_exact": true,
-            "py_lookup_ms": 13.3156,
-            "jit_lookup_ms": 0.3248,
-            "speedup_vs_py": 41.0024,
-            "max_diff": 0.0
+            "gather_rows": 16384,
+            "py_lookup_ms": 12.9598,
+            "numpy_vectorized_ms": 1.1806,
+            "jit_lookup_ms": 0.3221,
+            "speedup_vs_py": 40.2346,
+            "speedup_vs_numpy_vectorized": 3.6653,
+            "max_diff": 0.0,
+            "max_diff_numpy_vectorized": 0.0
           },
           "02_self_attention_as_soft_dictionary": {
             "backend": "cpu",
@@ -407,10 +615,17 @@
             "rope_norm_diff": 1e-06,
             "rope_rel_diff": 1e-06,
             "causal_prefix_leak": 0.0,
-            "naive_ms": 6.9015,
-            "jit_ms": 1.1861,
-            "speedup": 5.8185,
-            "max_diff": 1e-06
+            "causal_pivot": 64,
+            "batch_head_pairs": 64,
+            "hlo_fusions": 7,
+            "hlo_dots": 2,
+            "naive_ms": 6.555,
+            "numpy_batched_ms": 5.3277,
+            "jit_ms": 1.132,
+            "speedup": 5.7909,
+            "speedup_vs_numpy_batched": 4.7067,
+            "max_diff": 1e-06,
+            "max_diff_numpy_batched": 1e-06
           },
           "03_gemma_block_rms_geglu": {
             "backend": "cpu",
@@ -421,9 +636,12 @@
             "gqa_kv_kb": 512.0,
             "kv_memory_saving_ratio": 4.0,
             "rms_mean": 1.0,
-            "eager_ms": 8.1952,
-            "jit_ms": 4.1231,
-            "speedup": 1.9876,
+            "eager_top_level_ops": 88,
+            "hlo_fusions": 30,
+            "hlo_dots": 9,
+            "eager_ms": 6.5208,
+            "jit_ms": 3.6783,
+            "speedup": 1.7728,
             "max_diff": 2e-06
           },
           "04_kv_cache_prefill_vs_decode": {
@@ -431,21 +649,41 @@
             "prompt_len": 64,
             "gen_steps": 64,
             "max_seq_len": 128,
+            "batch_size": 4,
+            "num_layers": 4,
+            "cache_shape": "(4, 4, 2, 128, 32)",
+            "cache_kb_each": 512.0,
             "exact_token_match": true,
+            "generated_tokens_identical": 256,
+            "generated_tokens_total": 256,
             "max_logit_diff": 8e-06,
-            "naive_ms": 414.8111,
-            "kv_ms": 43.0929,
-            "speedup": 9.626
+            "naive_ms": 423.122,
+            "kv_ms": 33.6515,
+            "speedup": 12.5737,
+            "decode_step_ms_by_cache_len": {
+              "128": 0.5831,
+              "1024": 2.0352,
+              "8192": 11.9785
+            }
           },
           "05_sampling_loop_temperature_top_p": {
             "backend": "cpu",
             "shape": "(32, 64, 512)",
+            "steps": 32,
+            "batch_size": 64,
+            "vocab_size": 512,
             "greedy_parity": true,
+            "greedy_rows_matching": 64,
             "active_support_mean": 13.7969,
             "grammar_compliance_rate": 100.0,
-            "py_ms": 74.3556,
-            "jit_ms": 3.6776,
-            "speedup": 20.2187
+            "grammar_valid_draws": 2048,
+            "sampled_row0_first_steps": "{\"status\":\"ok\",\"tokens\":12",
+            "loop_of_jit_matches_scan": true,
+            "py_ms": 68.0771,
+            "loop_of_jit_ms": 6.1462,
+            "jit_ms": 3.1686,
+            "speedup": 21.485,
+            "speedup_vs_loop_of_jit": 1.9397
           }
         },
         "all_verifications_passed": true
@@ -470,18 +708,40 @@
           "flax": "0.12.12",
           "optax": "0.2.8",
           "numpy": "2.5.4",
-          "backend": "cpu"
+          "backend": "cpu",
+          "cpu_model": "Apple M1 Max",
+          "cpu_count": 10,
+          "load_average_before": [
+            10.23,
+            16.32,
+            17.18
+          ],
+          "load_average_after": [
+            9.64,
+            15.58,
+            16.88
+          ],
+          "timing": "median ms per call after one warmup call; varies run to run",
+          "model": "toy Gemma-style decoder (4 blocks, d_model 256), random base weights; not a Gemma checkpoint"
         },
         "experiments": {
           "01_when_prompting_hits_a_wall": {
             "backend": "cpu",
+            "model": "toy Gemma-style decoder, random weights (not a Gemma checkpoint)",
+            "model_params": 3672320,
+            "num_layers": 4,
+            "d_model": 256,
+            "timing": "median of 25 calls after one warmup call",
+            "num_iters": 25,
             "batch_size": 8,
             "fewshot_seq_len": 208,
             "compact_seq_len": 16,
             "token_overhead_ratio": 13.0,
-            "fewshot_prefill_ms": 34.09087668173015,
-            "compact_prefill_ms": 7.107734996825457,
-            "prefill_speedup": 4.79630665703719,
+            "fewshot_first_call_ms": 268.75016605481505,
+            "compact_first_call_ms": 266.1386248655617,
+            "fewshot_prefill_ms": 36.95958387106657,
+            "compact_prefill_ms": 6.758334115147591,
+            "prefill_speedup": 5.4687417403984675,
             "fewshot_kv_cache_kb": 6656.0,
             "compact_kv_cache_kb": 512.0,
             "kv_cache_reduction_pct": 92.3076923076923,
@@ -493,7 +753,10 @@
               12,
               32
             ],
+            "steps_per_model": 12,
             "jit_trace_count": 2,
+            "supervised_tokens_unmasked": 282,
+            "supervised_tokens_completion": 168,
             "wasted_prompt_token_share_pct": 40.42553191489361,
             "initial_completion_loss": 7.105162620544434,
             "initial_completion_acc_pct": 0.0,
@@ -510,7 +773,10 @@
             "trainable_ratio_pct": 2.075226977950713,
             "reduction_pct": 97.92477302204928,
             "lora_rank": 4,
+            "wrapped_projections": 28,
             "steps": 45,
+            "first_step_ms": 773.8766658585519,
+            "median_step_ms": 28.25833356473595,
             "loss_before": 7.16532039642334,
             "loss_step_20": 0.5186219215393066,
             "loss_after": 0.17091724276542664,
@@ -520,19 +786,50 @@
             "lora_weights_updated": true
           },
           "04_structured_output_validation_eval": {
+            "train_set_note": "the 12 cases are the 12 training examples",
             "before_lora": {
+              "split": "train",
               "num_cases": 12,
+              "json_parse_count": 0,
+              "schema_valid_count": 0,
+              "exact_match_count": 0,
               "json_parse_rate_pct": 0.0,
               "schema_valid_rate_pct": 0.0,
               "field_accuracy_pct": 0.0,
               "exact_match_rate_pct": 0.0
             },
             "after_lora": {
+              "split": "train",
               "num_cases": 12,
+              "json_parse_count": 12,
+              "schema_valid_count": 12,
+              "exact_match_count": 12,
               "json_parse_rate_pct": 100.0,
               "schema_valid_rate_pct": 100.0,
               "field_accuracy_pct": 100.0,
               "exact_match_rate_pct": 100.0
+            },
+            "heldout_before_lora": {
+              "split": "heldout",
+              "num_cases": 6,
+              "json_parse_count": 0,
+              "schema_valid_count": 0,
+              "exact_match_count": 0,
+              "json_parse_rate_pct": 0.0,
+              "schema_valid_rate_pct": 0.0,
+              "field_accuracy_pct": 0.0,
+              "exact_match_rate_pct": 0.0
+            },
+            "heldout_after_lora": {
+              "split": "heldout",
+              "num_cases": 6,
+              "json_parse_count": 6,
+              "schema_valid_count": 6,
+              "exact_match_count": 3,
+              "json_parse_rate_pct": 100.0,
+              "schema_valid_rate_pct": 100.0,
+              "field_accuracy_pct": 77.77777777777779,
+              "exact_match_rate_pct": 50.0
             },
             "sample_records": [
               {
@@ -556,17 +853,72 @@
                 "schema_valid": true,
                 "exact_match": true
               }
+            ],
+            "heldout_records": [
+              {
+                "incident_text": "timeout cobros tarjeta pasarela pagos alerta critica",
+                "expected_json": "{\"sev\":\"P1\",\"svc\":\"pagos\",\"act\":\"rollback\"}",
+                "decoded_output": "{\"sev\":\"P1\",\"svc\":\"auth\",\"act\":\"rollback\"}",
+                "schema_valid": true,
+                "exact_match": false
+              },
+              {
+                "incident_text": "latencia moderada cache pagos error sincronizacion",
+                "expected_json": "{\"sev\":\"P2\",\"svc\":\"pagos\",\"act\":\"cache\"}",
+                "decoded_output": "{\"sev\":\"P1\",\"svc\":\"auth\",\"act\":\"cache\"}",
+                "schema_valid": true,
+                "exact_match": false
+              },
+              {
+                "incident_text": "tokens jwt rechazados fallo critico auth produccion",
+                "expected_json": "{\"sev\":\"P1\",\"svc\":\"auth\",\"act\":\"rollback\"}",
+                "decoded_output": "{\"sev\":\"P1\",\"svc\":\"auth\",\"act\":\"rollback\"}",
+                "schema_valid": true,
+                "exact_match": true
+              },
+              {
+                "incident_text": "sesion expiracion aviso login reintento auth",
+                "expected_json": "{\"sev\":\"P3\",\"svc\":\"auth\",\"act\":\"escalar\"}",
+                "decoded_output": "{\"sev\":\"P1\",\"svc\":\"auth\",\"act\":\"escalar\"}",
+                "schema_valid": true,
+                "exact_match": false
+              },
+              {
+                "incident_text": "corrupcion indice db caida nodo primario urgente",
+                "expected_json": "{\"sev\":\"P1\",\"svc\":\"db\",\"act\":\"rollback\"}",
+                "decoded_output": "{\"sev\":\"P1\",\"svc\":\"db\",\"act\":\"rollback\"}",
+                "schema_valid": true,
+                "exact_match": true
+              },
+              {
+                "incident_text": "bloqueo conexiones replica lectura lenta db disco",
+                "expected_json": "{\"sev\":\"P2\",\"svc\":\"db\",\"act\":\"escalar\"}",
+                "decoded_output": "{\"sev\":\"P2\",\"svc\":\"db\",\"act\":\"escalar\"}",
+                "schema_valid": true,
+                "exact_match": true
+              }
             ]
           },
           "05_merge_weights_and_serve_endpoint": {
             "lora_params_before_merge": 77824,
             "lora_params_after_merge": 0,
             "merged_total_params": 3672320,
+            "base_total_params": 3672320,
             "max_logits_abs_diff": 9.953975677490234e-06,
-            "unmerged_forward_ms": 11.657465482130647,
-            "merged_forward_ms": 9.834886914385216,
-            "merge_inference_speedup": 1.185317694408829,
+            "hlo_dot_ops": {
+              "base": 37,
+              "merged": 37,
+              "two_branch_lora": 93
+            },
+            "timing": "median of 35 calls after one warmup call",
+            "num_iters": 35,
+            "unmerged_first_call_ms": 274.83049989677966,
+            "merged_first_call_ms": 242.4343330785632,
+            "unmerged_forward_ms": 12.42945808917284,
+            "merged_forward_ms": 10.583375114947557,
+            "merge_inference_speedup": 1.1744323482986014,
             "merged_exact_match_rate_pct": 100.0,
+            "http_server": "local, 127.0.0.1, in-process (nothing deployed)",
             "http_status": 200,
             "http_response": {
               "status": "ok",
@@ -577,7 +929,7 @@
               },
               "raw_completion": "{\"sev\":\"P1\",\"svc\":\"pagos\",\"act\":\"rollback\"}",
               "schema_valid": true,
-              "inference_ms": 35.6273,
+              "inference_ms": 40.3301,
               "serving_mode": "merged_single_branch_xla"
             }
           }
