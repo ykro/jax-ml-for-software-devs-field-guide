@@ -34,39 +34,39 @@
         <line x1="120" y1="80" x2="960" y2="80" stroke="#0f2547" stroke-opacity="0.16" stroke-width="1"/>
         <line x1="120" y1="400" x2="960" y2="400" stroke="#0f2547" stroke-opacity="0.16" stroke-width="1"/>
 
-        <!-- B5 — Adaptación de Gemma y Serving (FOCAL — DORADO) -->
+        <!-- 5 — Adaptación de Gemma y Serving (FOCAL — DORADO) -->
         <rect x="120" y="80" width="840" height="64" fill="#c59216" fill-opacity="0.12"/>
         <rect x="120" y="80" width="840" height="64" fill="none" stroke="#C59216" stroke-width="1.6"/>
-        <text x="144" y="116" fill="#9A6F0B" font-size="9" font-family="'Geist Mono', monospace" letter-spacing="0.14em" font-weight="600">B5 · APLICACIÓN</text>
+        <text x="144" y="116" fill="#9A6F0B" font-size="9" font-family="'Geist Mono', monospace" letter-spacing="0.14em" font-weight="600">5 · APLICACIÓN</text>
         <text x="272" y="118" fill="#0F2547" font-size="15.5" font-weight="600" font-family="'Geist', sans-serif">Plugins y Contratos JSON → Gemma + nnx.LoRA (W_base + A @ B)</text>
         <text x="940" y="118" fill="#9A6F0B" font-size="10" font-family="'Geist Mono', monospace" text-anchor="end" letter-spacing="0.04em" font-weight="500">adapting-gemma-for-your-app-in-jax</text>
 
-        <!-- B4 — Anatomía de Foundational Models -->
+        <!-- 4 — Anatomía de Foundational Models -->
         <rect x="120" y="144" width="840" height="64" fill="#FFFFFF" stroke="#0f2547" stroke-opacity="0.12" stroke-width="1"/>
-        <text x="144" y="180" fill="#3B5B8C" font-size="9" font-family="'Geist Mono', monospace" letter-spacing="0.14em" font-weight="500">B4 · ARQUITECTURA</text>
+        <text x="144" y="180" fill="#3B5B8C" font-size="9" font-family="'Geist Mono', monospace" letter-spacing="0.14em" font-weight="500">4 · ARQUITECTURA</text>
         <text x="272" y="182" fill="#0F2547" font-size="15.5" font-weight="600" font-family="'Geist', sans-serif">Pipelines con Estado y Caché → Transformer, Attention y KV Cache</text>
         <text x="940" y="182" fill="#3B5B8C" font-size="10" font-family="'Geist Mono', monospace" text-anchor="end" letter-spacing="0.04em">foundational-models-anatomy-in-jax</text>
 
-        <!-- B3 — Embeddings y Búsqueda Semántica -->
+        <!-- 3 — Embeddings y Búsqueda Semántica -->
         <rect x="120" y="208" width="840" height="64" fill="#F7F6F2" stroke="#0f2547" stroke-opacity="0.12" stroke-width="1"/>
-        <text x="144" y="244" fill="#3B5B8C" font-size="9" font-family="'Geist Mono', monospace" letter-spacing="0.14em" font-weight="500">B3 · RECUPERACIÓN</text>
+        <text x="144" y="244" fill="#3B5B8C" font-size="9" font-family="'Geist Mono', monospace" letter-spacing="0.14em" font-weight="500">3 · RECUPERACIÓN</text>
         <text x="272" y="246" fill="#0F2547" font-size="15.5" font-weight="600" font-family="'Geist', sans-serif">Índices Hash y Consultas SQL → Embeddings, Coseno e InfoNCE</text>
         <text x="940" y="246" fill="#3B5B8C" font-size="10" font-family="'Geist Mono', monospace" text-anchor="end" letter-spacing="0.04em">embeddings-and-semantic-search-in-jax</text>
 
-        <!-- B2 — ML desde Primeros Principios -->
+        <!-- 2 — ML desde Primeros Principios -->
         <rect x="120" y="272" width="840" height="64" fill="#FFFFFF" stroke="#0f2547" stroke-opacity="0.12" stroke-width="1"/>
-        <text x="144" y="308" fill="#3B5B8C" font-size="9" font-family="'Geist Mono', monospace" letter-spacing="0.14em" font-weight="500">B2 · APRENDIZAJE</text>
+        <text x="144" y="308" fill="#3B5B8C" font-size="9" font-family="'Geist Mono', monospace" letter-spacing="0.14em" font-weight="500">2 · APRENDIZAJE</text>
         <text x="272" y="310" fill="#0F2547" font-size="15.5" font-weight="600" font-family="'Geist', sans-serif">Configuración + Tests Unitarios → Parámetros (PyTrees) + Loss</text>
         <text x="940" y="310" fill="#3B5B8C" font-size="10" font-family="'Geist Mono', monospace" text-anchor="end" letter-spacing="0.04em">ml-from-first-principles-in-jax</text>
 
-        <!-- B1 — JAX para Software Devs -->
+        <!-- 1 — JAX para Software Devs -->
         <rect x="120" y="336" width="840" height="64" fill="#EFECE6" stroke="#0f2547" stroke-opacity="0.12" stroke-width="1"/>
-        <text x="144" y="372" fill="#3B5B8C" font-size="9" font-family="'Geist Mono', monospace" letter-spacing="0.14em" font-weight="500">B1 · FUNDAMENTOS</text>
+        <text x="144" y="372" fill="#3B5B8C" font-size="9" font-family="'Geist Mono', monospace" letter-spacing="0.14em" font-weight="500">1 · FUNDAMENTOS</text>
         <text x="272" y="374" fill="#0F2547" font-size="15.5" font-weight="600" font-family="'Geist', sans-serif">Python, NumPy y For-Loops → jax.numpy, @jax.jit, grad y vmap</text>
         <text x="940" y="374" fill="#3B5B8C" font-size="10" font-family="'Geist Mono', monospace" text-anchor="end" letter-spacing="0.04em">jax-for-software-devs</text>
 
         <!-- Legend & Focal Caption Strip -->
         <rect x="120" y="442" width="12" height="12" rx="2" fill="#c59216" fill-opacity="0.18" stroke="#C59216" stroke-width="1.2"/>
-        <text x="140" y="452" fill="#9A6F0B" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.16em" font-weight="600">META DE LA SERIE B (DORADO)</text>
+        <text x="140" y="452" fill="#9A6F0B" font-size="8" font-family="'Geist Mono', monospace" letter-spacing="0.16em" font-weight="600">META DEL FIELD GUIDE (DORADO)</text>
         <text x="312" y="452" fill="#3B5B8C" font-size="11" font-family="'Instrument Serif', serif" font-style="italic">Cada concepto nuevo de Machine Learning se construye sobre una abstracción que ya dominas como ingeniero de software.</text>
       </svg>

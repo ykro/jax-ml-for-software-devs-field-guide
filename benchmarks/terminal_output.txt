@@ -1,12 +1,12 @@
 ======================================================================
-OUTSIDE JUDGE: Serie B Field Guide — Master Series Verification
+OUTSIDE JUDGE: JAX & ML for Software Devs Field Guide — Master Verification
 ======================================================================
-[Repo B0] jax-ml-for-software-devs-field-guide: diagrams={'html': 3, 'svg': 3, 'png': 3}
-[Repo B1] jax-for-software-devs: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
-[Repo B2] ml-from-first-principles-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
-[Repo B3] embeddings-and-semantic-search-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
-[Repo B4] foundational-models-anatomy-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
-[Repo B5] adapting-gemma-for-your-app-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
+[Índice] jax-ml-for-software-devs-field-guide: diagrams={'html': 3, 'svg': 3, 'png': 3}
+[Repo 1] jax-for-software-devs: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
+[Repo 2] ml-from-first-principles-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
+[Repo 3] embeddings-and-semantic-search-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
+[Repo 4] foundational-models-anatomy-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
+[Repo 5] adapting-gemma-for-your-app-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
 ----------------------------------------------------------------------
-OVERALL SERIE B STATUS: PASS (html=18/18, svg=18/18, png=18/18)
+OVERALL FIELD GUIDE STATUS: PASS (html=18/18, svg=18/18, png=18/18)
 ======================================================================

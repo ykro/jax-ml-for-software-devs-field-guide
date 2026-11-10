@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Validador maestro de la Serie B: De Software Dev a ML y Foundational Models con JAX.
+"""Validador maestro del Field Guide: De Software Dev a ML y Foundational Models con JAX.
 
 Consolida las métricas deterministas (Outside Judges) de los 5 repositorios prácticos
-de la Serie B (`B1` a `B5`), verifica la integridad de los 18 diagramas (HTML, SVG, PNG)
-en los 6 repositorios de la Serie B (`B0` + `B1..B5`) y audita que todos los reportes
+del Field Guide, verifica la integridad de los 18 diagramas (HTML, SVG, PNG)
+en los 6 repositorios (el índice más los 5 prácticos) y audita que todos los reportes
 de benchmark estén completos.
 """
 
@@ -15,7 +15,7 @@ import sys
 
 SERIES_ROOT = pathlib.Path(__file__).resolve().parents[2]
 INDEX_SLUG = "jax-ml-for-software-devs-field-guide"
-SERIE_B_PROJECTS: list[tuple[str, str]] = [
+FIELD_GUIDE_PROJECTS: list[tuple[str, str]] = [
     ("jax-for-software-devs", "verify_fundamentals.py"),
     ("ml-from-first-principles-in-jax", "verify_first_principles.py"),
     ("embeddings-and-semantic-search-in-jax", "verify_embeddings.py"),
@@ -60,12 +60,12 @@ def main() -> int:
 
     lines = [
         "======================================================================",
-        "OUTSIDE JUDGE: Serie B Field Guide — Master Series Verification",
+        "OUTSIDE JUDGE: JAX & ML for Software Devs Field Guide — Master Verification",
         "======================================================================",
-        f"[Repo B0] {INDEX_SLUG}: diagrams={index_diagrams}",
+        f"[Índice] {INDEX_SLUG}: diagrams={index_diagrams}",
     ]
 
-    for idx, (slug, default_judge) in enumerate(SERIE_B_PROJECTS, start=1):
+    for idx, (slug, default_judge) in enumerate(FIELD_GUIDE_PROJECTS, start=1):
         repo_dir = SERIES_ROOT / slug
         judge_script = _find_judge_script(repo_dir, default_judge)
         results_file = repo_dir / "benchmarks" / "latest_results.json"
@@ -107,11 +107,11 @@ def main() -> int:
             all_passed = False
         projects_status[slug] = status
         lines.append(
-            f"[Repo B{idx}] {slug}: passed={repo_ok} | diagrams={diag_counts} | "
+            f"[Repo {idx}] {slug}: passed={repo_ok} | diagrams={diag_counts} | "
             f"results={results_file.exists()} | terminal_log={terminal_file.exists()}"
         )
 
-    expected_total = 3 * (1 + len(SERIE_B_PROJECTS))
+    expected_total = 3 * (1 + len(FIELD_GUIDE_PROJECTS))
     if total_html != expected_total or total_svg != expected_total or total_png != expected_total:
         all_passed = False
 
@@ -132,7 +132,7 @@ def main() -> int:
 
     lines.append("----------------------------------------------------------------------")
     lines.append(
-        f"OVERALL SERIE B STATUS: {'PASS' if all_passed else 'PARTIAL'} "
+        f"OVERALL FIELD GUIDE STATUS: {'PASS' if all_passed else 'PARTIAL'} "
         f"(html={total_html}/{expected_total}, svg={total_svg}/{expected_total}, "
         f"png={total_png}/{expected_total})"
     )
@@ -142,7 +142,7 @@ def main() -> int:
     bench_dir = index_dir / "benchmarks"
     bench_dir.mkdir(parents=True, exist_ok=True)
     json_payload = json.dumps(summary, indent=2, ensure_ascii=False) + "\n"
-    (bench_dir / "serie_b_summary.json").write_text(json_payload, encoding="utf-8")
+    (bench_dir / "field_guide_summary.json").write_text(json_payload, encoding="utf-8")
     (bench_dir / "latest_results.json").write_text(json_payload, encoding="utf-8")
     (bench_dir / "terminal_output.txt").write_text(terminal_report, encoding="utf-8")
 

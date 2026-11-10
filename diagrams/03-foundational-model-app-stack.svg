@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg viewBox="0 0 1040 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fm-app-stack-title fm-app-stack-desc" id="d-03-foundational-model-app-stack-root">
         <title id="fm-app-stack-title">De tests deterministas en local a fine-tuning LoRA on-demand y Cloud Run</title>
-        <desc id="fm-app-stack-desc">Arquitectura de extremo a extremo para la Serie B: validación local con pytest y Outside Judges, entrenamiento on-demand con auto-teardown en Cloud TPU v5e o GPU L4, fusión de pesos LoRA y despliegue serverless en Cloud Run.</desc>
+        <desc id="fm-app-stack-desc">Arquitectura de extremo a extremo para el Field Guide: validación local con pytest y Outside Judges, entrenamiento on-demand con auto-teardown en Cloud TPU v5e o GPU L4, fusión de pesos LoRA y despliegue serverless en Cloud Run.</desc>
         <defs>
       <style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;family=Noto+Serif:ital@0;1&amp;family=Noto+Sans+KR:wght@400;500;600&amp;family=Noto+Serif+KR:wght@400&amp;family=Noto+Sans+TC:wght@400;500;600&amp;family=Noto+Serif+TC:wght@400&amp;display=swap');
       #d-03-foundational-model-app-stack-root { --color-paper:   #F7F6F2;
