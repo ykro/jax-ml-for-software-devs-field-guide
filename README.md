@@ -55,27 +55,52 @@ Cada uno de los **5 repositorios prácticos (del `1` al `5`)** contiene **5 expe
   5. **Nivel 5 — Adaptar Gemma a tu Aplicación ([adapting-gemma-for-your-app-in-jax](https://github.com/ykro/adapting-gemma-for-your-app-in-jax))** para hacer fine-tuning quirúrgico con `Flax NNX` y `LoRA`, validar salidas como una suite de integración y servir pesos fusionados desde un endpoint HTTP local.
 - **Si ya dominas PyTorch y Deep Learning:** salta al [Field Guide: De PyTorch a JAX y OpenXLA](https://github.com/ykro/jax-openxla-field-guide).
 
-### 2. Validar el índice maestro localmente
+### 2. Validar el índice y los repositorios que clones
 
 ```bash
 git clone https://github.com/ykro/jax-ml-for-software-devs-field-guide.git
 cd jax-ml-for-software-devs-field-guide
-python3 scripts/verify_field_guide.py
+python3 scripts/verify_field_guide.py          # sin repos al lado: dice cuál clonar
+git clone https://github.com/ykro/jax-for-software-devs.git ../jax-for-software-devs
+python3 scripts/verify_field_guide.py          # revisa los que estén clonados
 ```
 
-El reporte consolidado de los 6 repositorios del Field Guide (`18` diagramas en formatos HTML, SVG y PNG más las métricas de todos los *Outside Judges*) se guarda automáticamente en `benchmarks/field_guide_summary.json` y `benchmarks/terminal_output.txt`.
+El verificador revisa los 3 diagramas del índice y, en cada repositorio de la ruta clonado junto a este, su juez (`verify_*.py`), su reporte (`benchmarks/latest_results.json` y `terminal_output.txt`) y sus 3 diagramas en HTML, SVG y PNG. Los repositorios que no has clonado salen como `skipped, not cloned` y no cuentan como falla. El resumen, con las métricas de cada juez, se guarda en `benchmarks/field_guide_summary.json` y `benchmarks/terminal_output.txt`.
 
 ```text
-======================================================================
-OUTSIDE JUDGE: JAX & ML for Software Devs Field Guide — Master Verification
-======================================================================
-[Índice] jax-ml-for-software-devs-field-guide: diagrams={'html': 3, 'svg': 3, 'png': 3}
-[Repo 1] jax-for-software-devs: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
-[Repo 2] ml-from-first-principles-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
-[Repo 3] embeddings-and-semantic-search-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
-[Repo 4] foundational-models-anatomy-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
-[Repo 5] adapting-gemma-for-your-app-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
-----------------------------------------------------------------------
-OVERALL FIELD GUIDE STATUS: PASS (html=18/18, svg=18/18, png=18/18)
-======================================================================
+==================================================================================================
+JAX & ML for Software Devs Field Guide · repo check (CPU, no GPU, no network)
+==================================================================================================
+0   | jax-ml-for-software-devs-field-guide       | 3 diagrams                         | PASS
+1   | jax-for-software-devs                      | judge, report, 3 diagrams          | PASS
+2   | ml-from-first-principles-in-jax            | skipped, not cloned                | -
+3   | embeddings-and-semantic-search-in-jax      | skipped, not cloned                | -
+4   | foundational-models-anatomy-in-jax         | skipped, not cloned                | -
+5   | adapting-gemma-for-your-app-in-jax         | skipped, not cloned                | -
+--------------------------------------------------------------------------------------------------
+1 checked, 4 skipped.
+ALL CHECKED UNITS PASSED.
 ```
+
+---
+
+## Práctica
+
+Si sabes Python y NumPy y nunca hiciste Machine Learning, la carpeta `practica/` responde con código qué es un modelo y qué significa que aprenda. Cada archivo es corto, corre en CPU en segundos, sin GPU ni red, y tiene su test en `tests/test_practica.py`.
+
+| Archivo | Qué hace |
+|---|---|
+| `practica/01_regla.py` | Una regla `if/else` escrita a mano estima minutos de entrega por kilómetro, y una línea mide su error |
+| `practica/02_aprender_roto.py` | El mismo error sin promediar: `jax.grad` falla porque necesita un solo número |
+| `practica/02_aprender.py` | `jax.grad` ajusta dos números en un loop de 200 pasos y el error baja de 781.80 a 0.38 |
+| `practica/03_parecidos.py` | Tickets como vectores: la similitud coseno pone primero los que se parecen a la consulta |
+| `practica/04_siguiente.py` | Generar texto palabra por palabra: logits, softmax, elegir la más probable y repetir |
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e ".[dev]"
+python practica/01_regla.py            # y así con cada archivo, en orden
+make all                               # ruff, pytest y el verificador
+```
+
+`make all` necesita al menos un repositorio de la ruta clonado junto a este (por ejemplo `jax-for-software-devs`); sin ninguno, el verificador te dice cuál clonar.

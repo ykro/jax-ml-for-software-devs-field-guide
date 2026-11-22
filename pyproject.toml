@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jax-ml-for-software-devs-field-guide"
+version = "0.1.0"
+description = "JAX & ML for Software Devs Field Guide: the route index and its hands-on practice"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+dependencies = [
+  "jax>=0.5",
+  "jaxlib>=0.5",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+  "ruff>=0.5.0",
+]
+
+[tool.setuptools]
+py-modules = []

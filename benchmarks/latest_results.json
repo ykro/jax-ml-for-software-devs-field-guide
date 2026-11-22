@@ -5,21 +5,16 @@
       "html": 3,
       "svg": 3,
       "png": 3
-    }
+    },
+    "passed": true
   },
-  "total_diagrams": {
-    "html": 18,
-    "svg": 18,
-    "png": 18,
-    "expected": 18
-  },
+  "checked": 5,
+  "skipped": 0,
   "projects": {
     "jax-for-software-devs": {
-      "exists": true,
+      "cloned": true,
+      "passed": true,
       "judge_script": "verify_fundamentals.py",
-      "judge_script_exists": true,
-      "results_file": true,
-      "terminal_output_file": true,
       "diagrams": {
         "html": 3,
         "svg": 3,
@@ -133,15 +128,12 @@
           }
         },
         "all_verifications_passed": true
-      },
-      "passed": true
+      }
     },
     "ml-from-first-principles-in-jax": {
-      "exists": true,
+      "cloned": true,
+      "passed": true,
       "judge_script": "verify_ml_principles.py",
-      "judge_script_exists": true,
-      "results_file": true,
-      "terminal_output_file": true,
       "diagrams": {
         "html": 3,
         "svg": 3,
@@ -331,15 +323,12 @@
           }
         },
         "all_verifications_passed": true
-      },
-      "passed": true
+      }
     },
     "embeddings-and-semantic-search-in-jax": {
-      "exists": true,
+      "cloned": true,
+      "passed": true,
       "judge_script": "verify_embeddings.py",
-      "judge_script_exists": true,
-      "results_file": true,
-      "terminal_output_file": true,
       "diagrams": {
         "html": 3,
         "svg": 3,
@@ -543,15 +532,12 @@
             ]
           }
         }
-      },
-      "passed": true
+      }
     },
     "foundational-models-anatomy-in-jax": {
-      "exists": true,
+      "cloned": true,
+      "passed": true,
       "judge_script": "verify_anatomy.py",
-      "judge_script_exists": true,
-      "results_file": true,
-      "terminal_output_file": true,
       "diagrams": {
         "html": 3,
         "svg": 3,
@@ -687,15 +673,12 @@
           }
         },
         "all_verifications_passed": true
-      },
-      "passed": true
+      }
     },
     "adapting-gemma-for-your-app-in-jax": {
-      "exists": true,
+      "cloned": true,
+      "passed": true,
       "judge_script": "verify_adaptation.py",
-      "judge_script_exists": true,
-      "results_file": true,
-      "terminal_output_file": true,
       "diagrams": {
         "html": 3,
         "svg": 3,
@@ -935,8 +918,7 @@
           }
         },
         "all_checks_passed": true
-      },
-      "passed": true
+      }
     }
   },
   "all_passed": true

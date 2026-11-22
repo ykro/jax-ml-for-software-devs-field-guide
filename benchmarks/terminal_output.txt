@@ -1,12 +1,12 @@
-======================================================================
-OUTSIDE JUDGE: JAX & ML for Software Devs Field Guide — Master Verification
-======================================================================
-[Índice] jax-ml-for-software-devs-field-guide: diagrams={'html': 3, 'svg': 3, 'png': 3}
-[Repo 1] jax-for-software-devs: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
-[Repo 2] ml-from-first-principles-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
-[Repo 3] embeddings-and-semantic-search-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
-[Repo 4] foundational-models-anatomy-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
-[Repo 5] adapting-gemma-for-your-app-in-jax: passed=True | diagrams={'html': 3, 'svg': 3, 'png': 3} | results=True | terminal_log=True
-----------------------------------------------------------------------
-OVERALL FIELD GUIDE STATUS: PASS (html=18/18, svg=18/18, png=18/18)
-======================================================================
+==================================================================================================
+JAX & ML for Software Devs Field Guide · repo check (CPU, no GPU, no network)
+==================================================================================================
+0   | jax-ml-for-software-devs-field-guide       | 3 diagrams                         | PASS
+1   | jax-for-software-devs                      | judge, report, 3 diagrams          | PASS
+2   | ml-from-first-principles-in-jax            | judge, report, 3 diagrams          | PASS
+3   | embeddings-and-semantic-search-in-jax      | judge, report, 3 diagrams          | PASS
+4   | foundational-models-anatomy-in-jax         | judge, report, 3 diagrams          | PASS
+5   | adapting-gemma-for-your-app-in-jax         | judge, report, 3 diagrams          | PASS
+--------------------------------------------------------------------------------------------------
+5 checked, 0 skipped.
+ALL CHECKED UNITS PASSED.

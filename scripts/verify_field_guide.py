@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Validador maestro del Field Guide: De Software Dev a ML y Foundational Models con JAX.
+"""Checks the JAX & ML for Software Devs Field Guide and the unit repos cloned next to it.
 
-Consolida las métricas deterministas (Outside Judges) de los 5 repositorios prácticos
-del Field Guide, verifica la integridad de los 18 diagramas (HTML, SVG, PNG)
-en los 6 repositorios (el índice más los 5 prácticos) y audita que todos los reportes
-de benchmark estén completos.
+The index must have its three diagrams (HTML, SVG, PNG). Each unit cloned next to this repo
+must have its judge (verify_*.py), its benchmark report (benchmarks/latest_results.json and
+terminal_output.txt) and three diagrams in each format. Units you have not cloned are
+reported as skipped and do not count as a failure.
+
+    git clone https://github.com/ykro/jax-for-software-devs.git ../jax-for-software-devs
+    python3 scripts/verify_field_guide.py
 """
 
 from __future__ import annotations
@@ -13,140 +16,102 @@ import json
 import pathlib
 import sys
 
-SERIES_ROOT = pathlib.Path(__file__).resolve().parents[2]
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+PARENT = ROOT.parent
 INDEX_SLUG = "jax-ml-for-software-devs-field-guide"
-FIELD_GUIDE_PROJECTS: list[tuple[str, str]] = [
-    ("jax-for-software-devs", "verify_fundamentals.py"),
-    ("ml-from-first-principles-in-jax", "verify_first_principles.py"),
-    ("embeddings-and-semantic-search-in-jax", "verify_embeddings.py"),
-    ("foundational-models-anatomy-in-jax", "verify_anatomy.py"),
-    ("adapting-gemma-for-your-app-in-jax", "verify_adaptation.py"),
+UNITS: list[tuple[str, str, str]] = [
+    ("1", "jax-for-software-devs", "verify_fundamentals.py"),
+    ("2", "ml-from-first-principles-in-jax", "verify_ml_principles.py"),
+    ("3", "embeddings-and-semantic-search-in-jax", "verify_embeddings.py"),
+    ("4", "foundational-models-anatomy-in-jax", "verify_anatomy.py"),
+    ("5", "adapting-gemma-for-your-app-in-jax", "verify_adaptation.py"),
 ]
+FULL_SET = {"html": 3, "svg": 3, "png": 3}
 
 
-def _count_diagrams(repo_dir: pathlib.Path) -> dict[str, int]:
-    diag_dir = repo_dir / "diagrams"
-    if not diag_dir.exists():
-        return {"html": 0, "svg": 0, "png": 0}
-    return {
-        "html": len(list(diag_dir.glob("*.html"))),
-        "svg": len(list(diag_dir.glob("*.svg"))),
-        "png": len(list(diag_dir.glob("*.png"))),
-    }
+def count_diagrams(repo: pathlib.Path) -> dict[str, int]:
+    folder = repo / "diagrams"
+    return {ext: len(list(folder.glob(f"*.{ext}"))) for ext in FULL_SET}
 
 
-def _find_judge_script(repo_dir: pathlib.Path, preferred: str) -> str:
-    if (repo_dir / preferred).exists():
-        return preferred
-    candidates = sorted(repo_dir.glob("verify_*.py"))
-    if candidates:
-        return candidates[0].name
-    return preferred
+def check_unit(repo: pathlib.Path, judge: str) -> tuple[list[str], dict[str, object]]:
+    """Returns what is missing in a cloned unit, plus the details saved in the summary."""
+    results = repo / "benchmarks" / "latest_results.json"
+    diagrams = count_diagrams(repo)
+    missing = []
+    if not (repo / judge).exists():
+        missing.append(judge)
+    if not results.exists():
+        missing.append("benchmarks/latest_results.json")
+    if not (repo / "benchmarks" / "terminal_output.txt").exists():
+        missing.append("benchmarks/terminal_output.txt")
+    if diagrams != FULL_SET:
+        missing.append("diagrams")
+    status: dict[str, object] = {"judge_script": judge, "diagrams": diagrams}
+    if results.exists():
+        try:
+            status["metrics"] = json.loads(results.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            missing.append("valid latest_results.json")
+            status["error"] = str(exc)
+    return missing, status
 
 
 def main() -> int:
-    index_dir = pathlib.Path(__file__).resolve().parents[1]
-    index_diagrams = _count_diagrams(index_dir)
-    all_passed = (
-        index_diagrams["html"] == 3
-        and index_diagrams["svg"] == 3
-        and index_diagrams["png"] == 3
-    )
+    index_diagrams = count_diagrams(ROOT)
+    index_ok = index_diagrams == FULL_SET
+    rows: list[tuple[str, str, str, str | None]] = []
+    projects: dict[str, object] = {}
+    for code, slug, judge in UNITS:
+        repo = PARENT / slug
+        if not repo.exists():
+            rows.append((code, slug, "skipped, not cloned", None))
+            projects[slug] = {"cloned": False}
+            continue
+        missing, status = check_unit(repo, judge)
+        verdict = "PASS" if not missing else "FAIL"
+        detail = "judge, report, 3 diagrams" if not missing else "missing " + ", ".join(missing)
+        rows.append((code, slug, detail, verdict))
+        projects[slug] = {"cloned": True, "passed": not missing, **status}
 
-    projects_status: dict[str, object] = {}
-    total_html = index_diagrams["html"]
-    total_svg = index_diagrams["svg"]
-    total_png = index_diagrams["png"]
+    checked = [r for r in rows if r[3]]
+    all_passed = index_ok and bool(checked) and all(r[3] == "PASS" for r in checked)
 
-    lines = [
-        "======================================================================",
-        "OUTSIDE JUDGE: JAX & ML for Software Devs Field Guide — Master Verification",
-        "======================================================================",
-        f"[Índice] {INDEX_SLUG}: diagrams={index_diagrams}",
-    ]
+    bar = "=" * 98
+    index_row = ("0", INDEX_SLUG, "3 diagrams" if index_ok else "missing diagrams",
+                 "PASS" if index_ok else "FAIL")
+    lines = [bar, "JAX & ML for Software Devs Field Guide · repo check (CPU, no GPU, no network)",
+             bar]
+    for code, slug, detail, verdict in [index_row, *rows]:
+        lines.append(f"{code:3} | {slug:42} | {detail:34} | {verdict or '-'}")
+    lines.append("-" * 98)
+    lines.append(f"{len(checked)} checked, {len(rows) - len(checked)} skipped.")
+    if not checked:
+        first = UNITS[0][1]
+        lines.append("No unit of this path is cloned next to this repo, so there is nothing to check.")
+        lines.append("Clone at least the first one:")
+        lines.append(f"  git clone https://github.com/ykro/{first}.git ../{first}")
+    elif all_passed:
+        lines.append("ALL CHECKED UNITS PASSED.")
+    else:
+        lines.append("SOME CHECKS FAILED.")
+    report = "\n".join(lines) + "\n"
 
-    for idx, (slug, default_judge) in enumerate(FIELD_GUIDE_PROJECTS, start=1):
-        repo_dir = SERIES_ROOT / slug
-        judge_script = _find_judge_script(repo_dir, default_judge)
-        results_file = repo_dir / "benchmarks" / "latest_results.json"
-        terminal_file = repo_dir / "benchmarks" / "terminal_output.txt"
-        diag_counts = _count_diagrams(repo_dir)
-        total_html += diag_counts["html"]
-        total_svg += diag_counts["svg"]
-        total_png += diag_counts["png"]
-
-        repo_ok = (
-            repo_dir.exists()
-            and (repo_dir / judge_script).exists()
-            and results_file.exists()
-            and terminal_file.exists()
-            and diag_counts["html"] == 3
-            and diag_counts["svg"] == 3
-            and diag_counts["png"] == 3
-        )
-        status: dict[str, object] = {
-            "exists": repo_dir.exists(),
-            "judge_script": judge_script,
-            "judge_script_exists": (repo_dir / judge_script).exists(),
-            "results_file": results_file.exists(),
-            "terminal_output_file": terminal_file.exists(),
-            "diagrams": diag_counts,
-        }
-        if results_file.exists():
-            try:
-                metrics = json.loads(results_file.read_text(encoding="utf-8"))
-                status["metrics"] = metrics
-            except Exception as exc:  # noqa: BLE001
-                status["error"] = str(exc)
-                repo_ok = False
-        else:
-            repo_ok = False
-
-        status["passed"] = repo_ok
-        if not repo_ok:
-            all_passed = False
-        projects_status[slug] = status
-        lines.append(
-            f"[Repo {idx}] {slug}: passed={repo_ok} | diagrams={diag_counts} | "
-            f"results={results_file.exists()} | terminal_log={terminal_file.exists()}"
-        )
-
-    expected_total = 3 * (1 + len(FIELD_GUIDE_PROJECTS))
-    if total_html != expected_total or total_svg != expected_total or total_png != expected_total:
-        all_passed = False
-
-    summary: dict[str, object] = {
-        "index_repo": {
-            "slug": INDEX_SLUG,
-            "diagrams": index_diagrams,
-        },
-        "total_diagrams": {
-            "html": total_html,
-            "svg": total_svg,
-            "png": total_png,
-            "expected": expected_total,
-        },
-        "projects": projects_status,
+    summary = {
+        "index_repo": {"slug": INDEX_SLUG, "diagrams": index_diagrams, "passed": index_ok},
+        "checked": len(checked),
+        "skipped": len(rows) - len(checked),
+        "projects": projects,
         "all_passed": all_passed,
     }
+    bench = ROOT / "benchmarks"
+    bench.mkdir(parents=True, exist_ok=True)
+    payload = json.dumps(summary, indent=2, ensure_ascii=False) + "\n"
+    (bench / "field_guide_summary.json").write_text(payload, encoding="utf-8")
+    (bench / "latest_results.json").write_text(payload, encoding="utf-8")
+    (bench / "terminal_output.txt").write_text(report, encoding="utf-8")
 
-    lines.append("----------------------------------------------------------------------")
-    lines.append(
-        f"OVERALL FIELD GUIDE STATUS: {'PASS' if all_passed else 'PARTIAL'} "
-        f"(html={total_html}/{expected_total}, svg={total_svg}/{expected_total}, "
-        f"png={total_png}/{expected_total})"
-    )
-    lines.append("======================================================================")
-    terminal_report = "\n".join(lines) + "\n"
-
-    bench_dir = index_dir / "benchmarks"
-    bench_dir.mkdir(parents=True, exist_ok=True)
-    json_payload = json.dumps(summary, indent=2, ensure_ascii=False) + "\n"
-    (bench_dir / "field_guide_summary.json").write_text(json_payload, encoding="utf-8")
-    (bench_dir / "latest_results.json").write_text(json_payload, encoding="utf-8")
-    (bench_dir / "terminal_output.txt").write_text(terminal_report, encoding="utf-8")
-
-    print(terminal_report, end="")
+    print(report, end="")
     return 0 if all_passed else 1
 
 
