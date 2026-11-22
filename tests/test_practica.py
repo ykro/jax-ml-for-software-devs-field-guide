@@ -89,3 +89,10 @@ def test_try_raising_the_score_of_hoy(tmp_path):
     out = run_changed("04_siguiente", "[0, 0, 0, 2, 1.5, 0]", "[0, 0, 0, 2, 2.5, 0]", tmp_path)
     assert "  llegó -> hoy    probabilidad 0.52" in out
     assert out.splitlines()[-1] == "el pedido llegó hoy <fin>"
+
+
+def test_summing_instead_of_averaging_blows_up_this_learning_rate(tmp_path):
+    out = run_changed("02_aprender", "return jnp.mean((pred - minutos) ** 2)",
+                      "return jnp.sum((pred - minutos) ** 2)", tmp_path)
+    assert "paso   0  error 7818.00" in out
+    assert "paso  50  error     nan" in out
